@@ -9,7 +9,7 @@
     <div class="flex flex-col items-center w-full">
         <header class="w-full lg:max-w-screen-xl">
             <div class="flex justify-between py-10 w-full px-10">
-                <a href="/index.html" class="text-3xl font-bold">وبلاگ</a>
+                <a href="/index.php" class="text-3xl font-bold">وبلاگ</a>
                 <input type="text" class="bg-gray-100 w-96 h-10 rounded-md outline-none px-2"/>
                 <a href="./" class="text-sm py-2 px-4 flex items-center bg-blue-500 rounded-md text-white">ورود / ثبت نام</a>
             </div>
