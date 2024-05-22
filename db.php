@@ -78,4 +78,5 @@ CREATE TABLE Banners (
 }
 
 $conn = null;
+//test
 ?>
