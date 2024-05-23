@@ -4,11 +4,11 @@ $username = "root";
 $password = "";
 $dbname = "weblog";
 
-/*try {
+try {
     $conn = new PDO("mysql:host=$servername", $username, $password);
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "CREATE DATABASE $dbname";
+    $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
 
     $conn->exec($sql);
     echo "Database created successfully<br>";
@@ -16,14 +16,15 @@ $dbname = "weblog";
     echo $sql . "<br>" . $e->getMessage();
 }
 
-$conn = null;*/
+$conn = null;
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "CREATE TABLE Users (
+
+    $sql = " CREATE TABLE IF NOT EXISTS Users (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   firstname VARCHAR(30) NOT NULL,
   lastname VARCHAR(30) NOT NULL,
@@ -31,16 +32,18 @@ try {
   password VARCHAR(50) NOT NULL ,
   reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );    
-    CREATE TABLE Posts (
+    CREATE TABLE IF NOT EXISTS Posts (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id VARCHAR(30) NOT NULL,
   category_id int(2) NOT NULL,
-  title VARCHAR(30) NOT NULL,
-  description VARCHAR(50) NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL,
   picture VARCHAR(250) NOT NULL,
-  post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  read_time int(2) NOT NULL,
+  slug VARCHAR(120) NOT NULL
   );
-CREATE TABLE Comments (
+CREATE TABLE IF NOT EXISTS Comments (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id VARCHAR(30) NOT NULL,
   post_id VARCHAR(30) NOT NULL,
@@ -48,11 +51,11 @@ CREATE TABLE Comments (
   contents VARCHAR(250) NOT NULL,
   comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
-CREATE TABLE Category (
+CREATE TABLE IF NOT EXISTS Category (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(30) NOT NULL
   );
-CREATE TABLE Admins (
+CREATE TABLE IF NOT EXISTS Admins (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(30) NOT NULL,
   firstname VARCHAR(30) NOT NULL,
@@ -61,7 +64,7 @@ CREATE TABLE Admins (
   password VARCHAR(50) NOT NULL ,
   reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   ); 
-CREATE TABLE Banners (
+CREATE TABLE IF NOT EXISTS Banners (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(30) NOT NULL,
   content VARCHAR(30) NOT NULL,
@@ -69,7 +72,15 @@ CREATE TABLE Banners (
   contents VARCHAR(250) NOT NULL,
   start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   expire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  );";
+  );
+CREATE TABLE IF NOT EXISTS verification (
+    id int(5) AUTO_INCREMENT,
+    token VARCHAR(50),
+    email VARCHAR(50),
+    code int(6),
+    PRIMARY KEY (id)
+)
+";
 
     $conn->exec($sql);
     echo "Tables created successfully";

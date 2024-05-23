@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
-  content: ["./**/*.html"],
+  content: ["./**/*{.html,.php}"],
   theme: {
     extend: {
       fontFamily : {
-        sans : ['vazir']
+        sans : ['vazir', ...defaultTheme.fontFamily.sans]
       }
     },
   },

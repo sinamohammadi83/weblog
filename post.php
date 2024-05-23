@@ -3,9 +3,11 @@
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
-$query = "SELECT * From posts LIMIT 3;";
+$slug = $_GET['post'];
 
-$posts = $pdoObj->query($query)->fetchAll();
+$query = "SELECT * From posts where slug='$slug'";
+
+$post = $pdoObj->query($query)->fetch();
 
 $queryCategories = "SELECT * FROM category LIMIT 10";
 
@@ -34,43 +36,32 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
         </nav>
     </header>
     <main class="flex w-full lg:max-w-screen-xl">
-        <div class="w-9/12 border-l flex flex-col gap-y-6 p-8 pr-4">
-            <?php
-
-            foreach ($posts as $post) {
-
-                ?>
-                <div class="flex p-4 border-b">
-                    <div class="w-9/12">
-                        <div class="flex mb-5">
-                            <a href="" class="text-xs flex items-center gap-x-1">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                    </svg>
-                                </span>
-                                <span><?php $user = $pdoObj->query("SELECT * FROM users WHERE id='$post[user_id]'")->fetch();echo $user['firstname']." ".$user["lastname"]?></span>
-                                <span class="text-slate-500"><?php echo $post['post_date'] ?></span>
-                            </a>
-                        </div>
-                        <a href="post.php?post=<?php echo $post['slug'] ?>" class="text-xl font-bold mb-2 block">
-                            <?php echo $post['title'] ?>
-                        </a>
-                        <div class="text-xs text-slate-400 w-9/12 leading-6 mb-5">
-                            <?php echo substr($post['description'],0,259) ?>
-                        </div>
-                        <div class="flex gap-x-4 items-center">
-                            <span class="text-slate-700 bg-gray-300 text-xs p-1 px-2 rounded"><?php $category = $pdoObj->query("SELECT * FROM category WHERE id='$post[category_id]'")->fetch();echo $category['title']?></span>
-                            <span class="text-xs text-slate-400">خواندن <span><?php echo $post['read_time']?></span> دقیقه</span>
-                        </div>
-                    </div>
-                    <div class="w-3/12">
-                        <a href="post.php?post=<?php echo $post['slug'] ?>">
-                            <img src="<?php echo $post['picture'] ?>" class="w-40 h-40 rounded object-cover" alt="">
-                        </a>
-                    </div>
+        <div class="w-9/12 border-l flex flex-col gap-y-6  pr-4">
+            <div class="p-4 border-b">
+                <div class="flex mb-5">
+                    <a href="" class="text-xs flex items-center gap-x-1">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </span>
+                        <span><?php $user = $pdoObj->query("SELECT * FROM users WHERE id='$post[user_id]'")->fetch();echo $user['firstname']." ".$user["lastname"]?></span>
+                        <span class="text-slate-500">. 2 ساعت پیش</span>
+                    </a>
                 </div>
-            <?php } ?>
+                <div class="text-2xl font-bold mb-5">
+                    <?php echo $post['title'] ?>
+                </div>
+                <div class="text-sm text-slate-800 w-10/12 leading-8 mb-10">
+                    <?php echo $post['description'] ?>
+                </div>
+                <div class="flex gap-x-4 items-center">
+                    <span class="text-slate-700 bg-gray-300 text-sm p-1 px-2 rounded">امنیت سایبری</span>
+                    <span class="text-slate-700 bg-gray-300 text-sm p-1 px-2 rounded">امنیت سایبری</span>
+                    <span class="text-slate-700 bg-gray-300 text-sm p-1 px-2 rounded">امنیت سایبری</span>
+                </div>
+            </div>
+
         </div>
         <div class="w-4/12 flex flex-col items-center pt-5 rounded-md">
             <div class="border-black border w-10/12 h-20 rounded-md flex justify-center items-center text-sm mb-5">
