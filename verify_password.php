@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
         } else {
 
-            header('location: /login_password.php?'."token=$token&error=1");
+            header('location: ./login_password.php?'."token=$token&error=1");
 
         }
 
     } else {
-        header('location: /login_password.php?'."token=$token&error=2");
+        header('location: ./login_password.php?'."token=$token&error=2");
     }
 
 }

@@ -48,7 +48,8 @@ require './vendor/PHPMailer/phpmailer/src/SMTP.php';
 
         if(!$userExists)
         {
-            $pdoObj->query("INSERT INTO users (email) VALUES ('$email')");
+            $password = md5($code);
+            $pdoObj->query("INSERT INTO users (email,password) VALUES ('$email','$password')");
         }
 
         header("location:./submit_code.php?token=$res[token]");

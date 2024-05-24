@@ -20,12 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $_SESSION['user_token'] = $info['token'];
             $_SESSION['user_email'] = $info['user_email'];
 
-            header('Location: /dashboard.php');
+            header('Location: ./dashboard.php');
 
         }
 
     } else {
-        header('location: /submit_code.php?'."token=$token&error=1");
+        header('location: ./submit_code.php?'."token=$token&error=1");
     }
 
 }
