@@ -60,7 +60,7 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
 
                     $post_id = $post_id + 1;
 
-                    if ($post['status'] == "publish"){
+                    if ($post['status'] == "preview"){
 
                 ?>
 
@@ -98,7 +98,7 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
 
                     $post_id = $post_id + 1;
 
-                    if ($post['status'] == "preview"){
+                    if ($post['status'] == "publish"){
 
                         ?>
 
