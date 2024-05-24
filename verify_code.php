@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             session_start();
 
             $_SESSION['user_token'] = $info['token'];
-            $_SESSION['user_email'] = $info['user_email'];
+            $_SESSION['user_email'] = $info['email'];
 
             header('Location: ./dashboard.php');
 
