@@ -1,9 +1,13 @@
 
 <?php
 
+session_start();
+
+$email = $_SESSION['email'];
+
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
-$query = "SELECT * From posts LIMIT 3;";
+$query = "SELECT * From posts LIMIT 3 WHERE email = $email;";
 
 $posts = $pdoObj->query($query)->fetchAll();
 
