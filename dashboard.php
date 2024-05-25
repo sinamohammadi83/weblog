@@ -167,7 +167,7 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
                 <div class="mb-5 flex gap-x-2">
                     <span class="font-bold text-xl">لینک های کمکی</span>
                 </div>
-                <a href="" class="block mb-2">مقاله جدید</a>
+                <a href="create_post.php" class="block mb-2">مقاله جدید</a>
                 <a href="" class="block mb-2">مشاهده آمار</a>
                 <a href="" class="block mb-2">آموزش انتشار نوشته</a>
             </div>
