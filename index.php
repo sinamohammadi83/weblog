@@ -3,7 +3,7 @@
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
-$query = "SELECT * From posts;";
+$query = "SELECT * From posts WHERE status = 'publish';";
 
 $posts = $pdoObj->query($query)->fetchAll();
 
