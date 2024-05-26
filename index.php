@@ -3,7 +3,7 @@
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
-$query = "SELECT * From posts LIMIT 3;";
+$query = "SELECT * From posts;";
 
 $posts = $pdoObj->query($query)->fetchAll();
 
@@ -38,7 +38,6 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
             <?php
 
             foreach ($posts as $post) {
-
                 ?>
                 <div class="flex p-4 border-b">
                     <div class="w-9/12">
@@ -56,7 +55,7 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
                         <a href="post.php?post=<?php echo $post['slug'] ?>" class="text-xl font-bold mb-2 block">
                             <?php echo $post['title'] ?>
                         </a>
-                        <div class="text-xs text-slate-400 w-9/12 leading-6 mb-5">
+                        <div class="text-xs text-slate-400 w-9/12 leading-6 mb-5 break-words">
                             <?php echo substr($post['description'],0,259) ?>
                         </div>
                         <div class="flex gap-x-4 items-center">
