@@ -1,11 +1,16 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
+        session_start();
+
         $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
         $title = $_POST['title'];
         $description = $_POST['description'];
-        $res = $pdoObj->query("INSERT INTO posts (title,description) VALUES ('$title','$description')");
+
+        $user = $pdoObj->query("SELECT * FROM users WHERE email='$_SESSION[user_email]'")->fetch();
+
+        $res = $pdoObj->query("INSERT INTO posts (title,description,user_id,status) VALUES ('$title','$description','$user[id]','publish')");
 
         if ($res)
         {
