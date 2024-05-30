@@ -1,6 +1,8 @@
 
 <?php
 
+include 'jdf.php';
+
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
 $query = "SELECT * From posts WHERE status = 'publish';";
@@ -49,7 +51,7 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
                                     </svg>
                                 </span>
                                 <span><?php $user = $pdoObj->query("SELECT * FROM users WHERE id='$post[user_id]'")->fetch();echo $user['firstname']." ".$user["lastname"]?></span>
-                                <span class="text-slate-500"><?php echo $post['post_date'] ?></span>
+                                <span class="text-slate-500"><?php $fulldate = strtok($post['post_date'], " "); $date = explode('-', $fulldate);$time = explode(' ', $post['post_date']); echo $time[1]." ".gregorian_to_jalali($date[0], $date[1], $date[2] , "-");  ?></span>
                             </a>
                         </div>
                         <a href="post.php?post=<?php echo $post['slug'] ?>" class="text-xl font-bold mb-2 block">
