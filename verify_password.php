@@ -41,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             }
 
         } else {
-<<<<<<< HEAD
 
             header('location: ./login_password.php?'."token=$token&error=1");
 
@@ -49,16 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     } else {
         header('location: ./login_password.php?'."token=$token&error=2");
-=======
             header('location: /login_password.php?'."token=$token&error=2");
         }
 
-    } else {
-
-        header('location: /login_password.php?'."token=$token&error=3");
-
->>>>>>> 64246a853098b10b560c1e5516a81c950b341d91
-    }
+//    } else {
+//
+//        header('location: /login_password.php?'."token=$token&error=3");
+//
+//    }
 
 }
 

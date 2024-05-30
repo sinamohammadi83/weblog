@@ -18,11 +18,17 @@ $get_category = $pdoObj->query($Category)->fetchAll();
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     session_start();
-
+    $picture = "";
     $image = $_FILES['image'];
-    $endLink = explode('.',$image['name']);
-    $link = "./public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
-    move_uploaded_file($image['tmp_name'],$link);
+    if ($image['name']){
+        unlink($post['picture']);
+        $endLink = explode('.',$image['name']);
+        $link = "./public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
+        move_uploaded_file($image['tmp_name'],$link);
+        $picture = $link;
+    }else{
+        $picture = $post['picture'];
+    }
 
 
     $title = $_POST['title'];
@@ -56,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $user = $pdoObj->query("SELECT * FROM users WHERE email='$_SESSION[user_email]'")->fetch();
 
-    $res = $pdoObj->query("UPDATE posts SET title='$title' ,description='$description' ,status='$status' ,slug='$slug' , category_id='$category_id' ,read_time='$read_time' WHERE id='$post[id]'");
+    $res = $pdoObj->query("UPDATE posts SET title='$title' ,description='$description' ,status='$status' ,slug='$slug' , category_id='$category_id' ,read_time='$read_time' , picture='$picture' WHERE id='$post[id]'");
 
     if ($res)
     {
@@ -71,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ایجاد مقاله</title>
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body>
 <div class="w-full h-screen bg-gray-50 overflow-x-hidden">
@@ -80,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="flex items-center justify-between mb-10">
                 <div class="flex gap-x-5">
                     <div class="text-2xl">وبلاگ</div>
-                    <a href="./dashboard.php" class="text-blue-500 underline">رفتن به پیش نویس ها</a>
+                    <a href="dashboard.php" class="text-blue-500 underline">رفتن به پیش نویس ها</a>
                 </div>
             </div>
         </div>
@@ -94,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="bg-white p-4 rounded-md w-64 shadow">
                 <div class="mb-5">
                     <div class="text-sm text-slate-800 mb-2">عکس شاخص</div>
+                    <img src="<?php echo $post['picture']?>" class="w-full rounded h-28 object-cover mb-3" alt="">
                     <input type="file" name="image">
                 </div>
                 <div class="mb-5">
