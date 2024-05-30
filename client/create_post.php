@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ایجاد مقاله</title>
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body>
     <div class="w-full h-screen bg-gray-50 overflow-x-hidden">
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 <div class="flex items-center justify-between mb-10">
                     <div class="flex gap-x-5">
                         <div class="text-2xl">وبلاگ</div>
-                        <a href="./dashboard.php" class="text-blue-500 underline">رفتن به پیش نویس ها</a>
+                        <a href="dashboard.php" class="text-blue-500 underline">رفتن به پیش نویس ها</a>
                     </div>
                 </div>
             </div>
