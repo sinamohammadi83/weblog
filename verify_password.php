@@ -13,51 +13,44 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     if (!empty($password)){
 
-        if ($info == true){
+        if ($info){
 
             $email = $info['email'];
+
+            $password = md5($password);
 
             $queryUser = "SELECT email, password From users WHERE email = '$email' AND password = '$password' LIMIT 1;";
 
             $user = $pdoObj->query($queryUser)->fetch();
 
-            if ($user == true){
+            if ($user){
 
                 if ($password == $user['password'] AND $token == $info['token']){
 
                     session_start();
 
                     $_SESSION['user_token'] = $info['token'];
-                    $_SESSION['user_email'] = $info['user_email'];
+                    $_SESSION['user_email'] = $info['email'];
 
-                    header('Location: /dashboard.php');
+                    header('Location: ./dashboard.php');
 
                 }
 
             } else {
 
-                header('location: /login_password.php?'."token=$token&error=1");
+                header('location: ./login_password.php?'."token=$token&error=1");
 
             }
 
         } else {
-<<<<<<< HEAD
 
-            header('location: ./login_password.php?'."token=$token&error=1");
+            header('location: ./login_password.php?' . "token=$token&error=2");
 
         }
-
-    } else {
-        header('location: ./login_password.php?'."token=$token&error=2");
-=======
-            header('location: /login_password.php?'."token=$token&error=2");
-        }
-
     } else {
 
-        header('location: /login_password.php?'."token=$token&error=3");
+        header('location: ./login_password.php?'."token=$token&error=3");
 
->>>>>>> 64246a853098b10b560c1e5516a81c950b341d91
     }
 
 }
