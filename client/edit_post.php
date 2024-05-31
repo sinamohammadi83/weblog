@@ -23,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     if ($image['name']){
         unlink($post['picture']);
         $endLink = explode('.',$image['name']);
-        $link = "./public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
-        move_uploaded_file($image['tmp_name'],$link);
+        $link = "public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
+        move_uploaded_file($image['tmp_name'],"../".$link);
         $picture = $link;
     }else{
         $picture = $post['picture'];
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="bg-white p-4 rounded-md w-64 shadow">
                 <div class="mb-5">
                     <div class="text-sm text-slate-800 mb-2">عکس شاخص</div>
-                    <img src="<?php echo $post['picture']?>" class="w-full rounded h-28 object-cover mb-3" alt="">
+                    <img src="../<?php echo $post['picture']?>" class="w-full rounded h-28 object-cover mb-3" alt="">
                     <input type="file" name="image">
                 </div>
                 <div class="mb-5">

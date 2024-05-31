@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
         $image = $_FILES['image'];
         $endLink = explode('.',$image['name']);
-        $link = "./public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
-        move_uploaded_file($image['tmp_name'],$link);
+        $link = "public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
+        move_uploaded_file($image['tmp_name'],"../".$link);
 
 
         $title = $_POST['title'];
