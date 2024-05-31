@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $_SESSION['user_token'] = $info['token'];
             $_SESSION['user_email'] = $info['email'];
 
-            header('Location: ./dashboard.php');
+            header('Location: ./client/dashboard.php');
 
         }
 

@@ -29,13 +29,15 @@ switch ($action){
                 ]);
             }
         }
-    break;
+        break;
     case 'delete':
         if (isset($_SESSION['user_email'])) {
             $comment_id = $_POST['comment_id'];
             $user = $pdoObj->query("SELECT * FROM users WHERE email='$_SESSION[user_email]'")->fetch();
-            $pdoObj->query("DELETE FROM comments WHERE id='$comment_id' AND user_id='$user[id]'");
+            $post_id = $_POST['post_id'];
+            $post = $pdoObj->query("SELECT * FROM posts WHERE id='$post_id' AND user_id='$user[id]'")->fetch();
+            $pdoObj->query("DELETE FROM comments WHERE id='$comment_id' AND post_id='$post[id]'");
             echo "دیدگاه با موفقیت حذف شد.";
         }
-    break;
+        break;
 }

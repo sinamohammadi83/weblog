@@ -4,7 +4,7 @@
 session_start();
 
 if (!isset($_SESSION['user_email']))
-    header('location:./login.php');
+    header('location:../login.php');
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
