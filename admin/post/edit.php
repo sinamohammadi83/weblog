@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     }
 
-    $res = $pdoObj->query("UPDATE posts SET title='$title' ,description='$description' ,status='$status' ,slug='$slug' , category_id='$category_id' ,read_time='$read_time' , WHERE id='$post_id'");
+    $res = $pdoObj->query("UPDATE posts SET title='$title' ,description='$description' ,status='$status' ,slug='$slug' , category_id='$category_id' ,read_time='$read_time' WHERE id='$post_id'");
 
     if ($res)
     {
