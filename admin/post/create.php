@@ -1,6 +1,6 @@
 
     <div class="w-10/12 lg:max-w-screen-lg mb-10 text-xl font-bold">ایجاد مقاله</div>
-    <div class="bg-white w-10/12 rounded-md shadow p-4 text-sm lg:max-w-screen-lg">
+    <div class="bg-white w-10/12 rounded-md shadow p-4 pb-0 text-sm lg:max-w-screen-lg">
         <form method="post">
             <div class="flex w-full gap-x-4 mb-5">
                 <div class="w-full">
