@@ -63,10 +63,10 @@
                 </a>
             </div>
         </div>
-        <div class="w-full h-screen overflow-y-auto px-20 pt-20 from-blue-100 via-blue-200 via-30% to-blue-300/60 from-20% to-70% bg-gradient-to-r">
+        <div class="w-full flex flex-col items-center items-start h-screen overflow-y-auto px-20 pt-20 from-blue-100 via-blue-200 via-30% to-blue-300/60 from-20% to-70% bg-gradient-to-r">
             <?php
                 if (isset($_GET['s']) && isset($_GET['a']))
-                require_once "$_GET[s]/$_GET[a].php"
+                    require_once "$_GET[s]/$_GET[a].php"
             ?>
         </div>
     </div>

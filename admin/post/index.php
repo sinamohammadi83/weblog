@@ -1,5 +1,12 @@
-<div class="text-2xl font-bold mb-10">لیست مقالات</div>
-<div class="bg-white w-full rounded-md p-4 h-5/6 overflow-hidden">
+<div class="flex justify-between w-full lg:max-w-screen-xl items-center mb-10">
+    <div class="text-2xl font-bold">لیست مقالات</div>
+    <a href="index.php?s=post&a=create" class="bg-white rounded-md p-2 shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5">
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+        </svg>
+    </a>
+</div>
+<div class="bg-white shadow w-full lg:max-w-screen-xl rounded-md p-4 h-5/6 overflow-hidden">
     <div class="bg-sky-200 rounded-md w-full p-1 mb-5">
         <input type="text" placeholder="عنوان ..." class="p-2 rounded-md text-sm outline-none w-72">
     </div>
