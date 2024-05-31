@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 ?>
 <html dir="rtl">
 <head>
@@ -21,7 +23,19 @@
                 <input type="text" name="code"
                        class="bg-gray-200 outline-none focus:bg-white focus:border-2 focus:border-blue-500 w-full rounded-md p-2">
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($_GET['token'])?>">
+
+                <?php
+
+                if (!isset($_SESSION['is_register'])) {
+
+                ?>
                 <a href="./login_password.php?token=<?php echo htmlspecialchars($_GET['token'])?>" class="text-sm text-blue-500 underline mt-2 block">ورود با رمز عبور</a>
+
+                <?php
+
+                }
+
+                ?>
                 <div class="flex justify-end w-full">
                     <input type="submit"
                            class="bg-blue-500 lg:cursor-pointer text-white px-4 py-2 rounded-md text-sm mt-24"

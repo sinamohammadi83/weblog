@@ -2,6 +2,8 @@
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
+    session_start();
+
     $code = $_POST['code'];
     $token = $_POST['token'];
 
@@ -11,16 +13,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $info = $pdoObj->query($query)->fetch();
 
-    if ($info == true){
+    if ($info){
 
         if ($code == $info['code'] AND $token == $info['token']){
 
-            session_start();
+            if (isset($_SESSION['is_register'])){
 
-            $_SESSION['user_token'] = $info['token'];
-            $_SESSION['user_email'] = $info['email'];
+                header('Location: ./set_name.php?token='.$token);
 
-            header('Location: ./client/dashboard.php');
+            } else {
+
+                $_SESSION['user_token'] = $info['token'];
+                $_SESSION['user_email'] = $info['email'];
+
+                header('Location: ./client/dashboard.php');
+
+            }
 
         }
 
