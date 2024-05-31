@@ -1,3 +1,21 @@
+<?php
+
+$pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
+
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
+    $title = $_POST['title'];
+
+    $res = $pdoObj->query("INSERT INTO category (title) VALUES ('$title')");
+
+    if ($res)
+    {
+        header('Location: index.php?s=category&a=index');
+    }
+}
+
+?>
+
 <div class="w-10/12 lg:max-w-screen-lg mb-10 text-xl font-bold">ایجاد دسته بندی</div>
 <div class="bg-white w-10/12 rounded-md shadow p-4 pb-0 text-sm lg:max-w-screen-lg">
     <form method="post">

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     if ($res)
     {
-
+        header('Location: index.php?s=post&a=index');
     }
 }
 
