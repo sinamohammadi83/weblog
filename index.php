@@ -1,6 +1,6 @@
 
 <?php
-
+include 'jdf.php';
 include 'functions.php';
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");

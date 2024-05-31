@@ -10,15 +10,17 @@ function token($len)
     return $token;
 }
 
-function convert_date($get_date)
+function convert_date($get_date,$print_time=false)
 {
-
-    include 'jdf.php';
 
     $fulldate = strtok($get_date, " ");
     $date = explode('-', $fulldate);
-    $time = explode(' ', $get_date);
-    $convert = $time[1]." ".gregorian_to_jalali($date[0], $date[1], $date[2] , "-");
+    if ($print_time){
+        $time = explode(' ', $get_date);
+        $convert = $time[1]." ".gregorian_to_jalali($date[0], $date[1], $date[2] , "-");
+    }else{
+        $convert =gregorian_to_jalali($date[0], $date[1], $date[2] , "-");
+    }
     return $convert;
 
 }
