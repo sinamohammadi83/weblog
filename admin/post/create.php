@@ -1,4 +1,51 @@
+<?php
 
+$pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
+
+$Category = "SELECT * FROM Category";
+
+$get_category = $pdoObj->query($Category)->fetchAll();
+
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
+    $title = $_POST['title'];
+    $slug = implode('-',explode(' ',$title));
+    $description = $_POST['description'];
+    $status = $_POST['status'];
+    $category_id = $_POST['category_id'];
+    $description_len = strlen($description);
+
+    switch ($description_len){
+
+        case $description_len < 500:
+            $read_time = 2;
+            break;
+        case $description_len < 1000:
+            $read_time = 3;
+            break;
+        case $description_len < 1500:
+            $read_time = 4;
+            break;
+        case $description_len < 2000:
+            $read_time = 5;
+            break;
+        case $description_len > 2500:
+            $read_time = 6;
+            break;
+        default:
+            $read_time = 1;
+
+    }
+
+    $res = $pdoObj->query("INSERT INTO posts (title,description,user_id,status,slug, category_id, read_time) VALUES ('$title','$description','0','$status','$slug','$category_id','$read_time')");
+
+    if ($res)
+    {
+
+    }
+}
+
+?>
     <div class="w-10/12 lg:max-w-screen-lg mb-10 text-xl font-bold">ایجاد مقاله</div>
     <div class="bg-white w-10/12 rounded-md shadow p-4 pb-0 text-sm lg:max-w-screen-lg">
         <form method="post">
@@ -12,8 +59,14 @@
                 <div class="w-full">
                     <div class="mb-2">دسته بندی</div>
                     <div>
-                        <select type="text" name="title" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
-                            <option value=""></option>
+                        <select type="text" name="category_id" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
+                            <?php foreach ($get_category as $category){
+
+                                ?>
+
+                                <option value="<?php echo $category['id']?>"><?php echo $category['title'] ?></option>
+
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
@@ -21,7 +74,7 @@
             <div class="w-full mb-5">
                 <div class="mb-2">محتوا</div>
                 <div>
-                <textarea type="text" name="title" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
+                <textarea type="text" name="description" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
                 </div>
             </div>
             <div class="mb-10 w-44">
