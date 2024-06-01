@@ -11,9 +11,9 @@ if (isset($_GET['post_id'])){
     $delete = $pdoObj->query($query);
 
     if ($delete){
-        echo "Post Deleted";
-    } else{
-        echo "Post Not Deleted";
+
+        header('location: index.php?s=post&a=index');
+
     }
 
 }
