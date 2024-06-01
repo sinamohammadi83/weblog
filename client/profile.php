@@ -3,6 +3,8 @@
 
 session_start();
 
+include "../functions.php";
+
 if (!isset($_SESSION['user_email']))
     header('location:../login.php');
 
@@ -13,6 +15,65 @@ $email = $_SESSION['user_email'];
 $query = "SELECT * From users WHERE email = '$email'";
 
 $user = $pdoObj->query($query)->fetch();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $password = $_POST['password'];
+    $repassword = $_POST['repassword'];
+
+
+    $linkHeader = "location:./profile.php";
+    $error = false;
+    if ($firstname == "")
+    {
+        $linkHeader.="&error_firstname=1";
+        $error = true;
+    }
+    if ($lastname == "")
+    {
+        $linkHeader.="&error_lastname=1";
+        $error = true;
+    }
+    if ($password != $repassword)
+    {
+        $linkHeader.="&error_password=2&error_repassword=2";
+        $error = true;
+    }
+    if ($password){
+        $password = md5($password);
+    }else{
+        $password = $user['password'];
+    }
+    if ($error)
+    {
+        header($linkHeader);
+        die();
+    }
+
+    $picture = $_FILES['image'];
+    $link = "";
+    if ($picture['name'])
+    {
+        if ($user['picture']){
+            unlink('../'.$user['picture']);
+        }
+
+        $end = explode('.',$picture['name'])[1];
+        $link = "public/images/users/".token(15).'.'.$end;
+        move_uploaded_file($picture['tmp_name'],'../'.$link);
+    }else{
+        $link = $user['picture'];
+    }
+
+    $res = $pdoObj->query("UPDATE users SET firstname='$firstname' , lastname='$lastname', password='$password' , picture='$link' WHERE id='$user[id]'");
+    if ($res)
+    {
+        header('Location: profile.php');
+    }
+
+}
 
 ?>
 
@@ -90,19 +151,19 @@ $user = $pdoObj->query($query)->fetch();
     <main class="flex w-full lg:max-w-screen-xl">
         <div class="w-9/12 border-l flex flex-col gap-y-6 p-8 pt-16 pr-4">
             <div class="text-xl font-bold mb-5">ویرایش پروفایل</div>
-            <form method="" class="w-full" enctype="multipart/form-data">
+            <form method="post" class="w-full" enctype="multipart/form-data">
                 <div class="flex w-full gap-x-8 mb-5">
                     <div class="w-full">
                         <div class="mb-2 text-slate-800 text-sm">
                             نام
                         </div>
-                        <input type="text" name="firstname" class="rounded-md outline-none text-sm w-full border-gray-300 border-2 focus:border-blue-600 p-2">
+                        <input type="text" name="firstname" class="rounded-md outline-none text-sm w-full border-gray-300 border-2 focus:border-blue-600 p-2" value="<?php echo $user['firstname']; ?>">
                     </div>
                     <div class="w-full">
                         <div class="mb-2 text-slate-800 text-sm">
                             نام خانوادگی
                         </div>
-                        <input type="text" name="lastname" class="rounded-md outline-none text-sm w-full border-gray-300 border-2 focus:border-blue-600 p-2">
+                        <input type="text" name="lastname" class="rounded-md outline-none text-sm w-full border-gray-300 border-2 focus:border-blue-600 p-2" value="<?php echo $user['lastname'] ?>">
                     </div>
                 </div>
                 <div class="flex w-full gap-x-8 mb-5">
