@@ -137,7 +137,7 @@ if (isset($_SESSION['user_email'])) {
                                     <span class="text-slate-500"><?php echo convert_date($post['post_date']) ?></span>
                                 </a>
                             </div>
-                            <a href="post.php?post=<?php echo $post['slug'] ?>" class="text-xl font-bold mb-2 block">
+                            <a href="post.php?post=<?php echo $post['slug'] ?>" class="text-xl font-bold mb-2 block break-words">
                                 <?php echo $post['title'] ?>
                             </a>
                             <div class="text-xs text-slate-400 w-9/12 leading-6 mb-5 break-words">
@@ -213,7 +213,7 @@ if (isset($_SESSION['user_email'])) {
                     +'<span class="text-slate-500">'+post.post_date+'</span>'
                 +'</a>'
                 +'</div>'
-                    +'<a href="post.php?post=" class="text-xl font-bold mb-2 block">'
+                    +'<a href="post.php?post='+post.slug+'" class="text-xl font-bold mb-2 block break-words">'
                     +post.title
                     +'</a>'
                     +'<div class="text-xs text-slate-400 w-9/12 leading-6 mb-5 break-words">'
@@ -225,7 +225,7 @@ if (isset($_SESSION['user_email'])) {
                     +'</div>'
                 +'</div>'
                     +'<div class="w-3/12">'
-                        +'<a href="post.php?post=">'
+                        +'<a href="post.php?post='+post.slug+'">'
                             +'<img src="'+post.picture+'" class="w-40 h-40 rounded object-cover" alt="">'
                         +'</a>'
                     +'</div>'

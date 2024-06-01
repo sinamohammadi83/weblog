@@ -131,16 +131,19 @@ if (isset($_SESSION['user_email'])) {
                         <span class="text-slate-500">. 2 ساعت پیش</span>
                     </a>
                 </div>
-                <div class="text-2xl font-bold mb-5">
+                <div class="text-2xl font-bold mb-5 break-words">
                     <?php echo $post['title'] ?>
                 </div>
                 <div class="text-sm text-slate-800 w-10/12 leading-8 mb-10 break-words">
                     <?php echo $post['description'] ?>
                 </div>
-                <div class="flex gap-x-4 items-center mb-10">
-                    <span class="text-slate-700 bg-gray-300 text-sm p-1 px-2 rounded">امنیت سایبری</span>
-                    <span class="text-slate-700 bg-gray-300 text-sm p-1 px-2 rounded">امنیت سایبری</span>
-                    <span class="text-slate-700 bg-gray-300 text-sm p-1 px-2 rounded">امنیت سایبری</span>
+                <div class="mb-10 flex flex-col  items-center fixed bottom-0 right-1/2 shadow w-24 pt-1 h-12 rounded-full bg-white">
+                    <span class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
+                    </span>
+                    <span class="text-xs text-slate-800 text-center">10</span>
                 </div>
                 <div>
                     <div class="text-2xl mb-5">نظرات</div>
@@ -177,7 +180,6 @@ if (isset($_SESSION['user_email'])) {
                                 <?php echo $comment['contents']?>
                             </div>
                             <div class="flex justify-end gap-x-2">
-                                <button class="text-xs text-blue-500 underline">پاسخ</button>
                                 <?php if ($user_login && $comment['user_id'] == $user_login['id']){ ?>
                                     <button class="text-xs text-red-500 underline delete_comment" id="delete-comment-<?php echo $comment['id']?>">حذف</button>
                                 <?php } ?>

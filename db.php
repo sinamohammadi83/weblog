@@ -82,6 +82,11 @@ CREATE TABLE IF NOT EXISTS verification (
     email VARCHAR(50),
     code int(6),
     PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS LIKES (
+    user_id INT,
+    post_id INT,
+    PRIMARY KEY (post_id,user_id)
 )
 ";
 
