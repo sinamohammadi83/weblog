@@ -1,0 +1,6 @@
+{
+    "require": {
+        "morilog/jalali": "3.*",
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
