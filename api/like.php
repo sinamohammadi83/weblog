@@ -32,4 +32,10 @@ if ($results){
 
 }
 
+$count = $pdoObj->query("SELECT COUNT(post_id) FROM likes WHERE post_id='$post_id'")->fetch()[0];
+
+echo json_encode([
+    'count' => $count
+])
+
 ?>

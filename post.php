@@ -22,13 +22,18 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
 
 $user = $pdoObj->query("SELECT * FROM users WHERE id='$post[user_id]'")->fetch();
 
+$is_likes = false;
 if (isset($_SESSION['user_email'])) {
     $email = $_SESSION['user_email'];
 
     $query = "SELECT * From users WHERE email = '$email'";
 
     $userLogin = $pdoObj->query($query)->fetch();
+
+    $is_likes = $pdoObj->query("SELECT * FROM likes WHERE user_id='$userLogin[id]' AND post_id='$post[id]'")->fetch();
 }
+
+
 ?>
 
 <html lang="fa" dir="rtl">
@@ -133,11 +138,11 @@ if (isset($_SESSION['user_email'])) {
                     <div class="mb-10 flex flex-col items-center shadow w-12 pt-1 h-12 rounded-full bg-white">
                         <button id="button_like">
                         <span class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" id="svg_like" class="w-7 h-7 text-white stroke-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" id="svg_like" class="w-7 h-7 <?php echo $is_likes ? 'text-red-500' : ' text-white stroke-black' ?>">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                             </svg>
                         </span>
-                            <span class="text-xs text-slate-800 text-center">
+                            <span id="count_like" class="text-xs text-slate-800 text-center">
                                 <?php echo $pdoObj->query("SELECT COUNT(post_id) FROM likes WHERE post_id='$post[id]'")->fetch()[0]?>
                             </span>
                         </button>
@@ -227,6 +232,7 @@ if (isset($_SESSION['user_email'])) {
     const delete_comment = document.getElementsByClassName('delete_comment')
     const button_like = document.getElementById('button_like')
     const svg_like = document.getElementById('svg_like')
+    const count_like = document.getElementById('count_like')
     <?php
         if (isset($_SESSION['user_email'])){
     ?>
@@ -300,7 +306,7 @@ if (isset($_SESSION['user_email'])) {
             data : {
                 post_id : <?php echo $post['id'] ?>,
             },
-            success : function () {
+            success : function (data) {
                 if (svg_like.classList.contains('text-red-500'))
                 {
                     svg_like.classList.remove('text-red-500')
@@ -311,6 +317,8 @@ if (isset($_SESSION['user_email'])) {
                     svg_like.classList.remove('stroke-black')
                     svg_like.classList.remove('text-white')
                 }
+                const parseData = JSON.parse(data)
+                count_like.innerText= parseData.count
             }
         })
     }
