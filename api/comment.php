@@ -9,7 +9,7 @@ switch ($action){
             header('Content-type: text/plain; charset=utf-8');
 
             $content = $_POST['content'];
-            if (strlen($content) > 50)
+            if (strlen($content) > 10)
             {
                 $user_email = $_SESSION['user_email'];
                 $user = $pdoObj->query("SELECT * FROM users WHERE email='$user_email'")->fetch();

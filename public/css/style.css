@@ -636,8 +636,8 @@ video {
   bottom: 0px;
 }
 
-.bottom-10 {
-  bottom: 2.5rem;
+.bottom-20 {
+  bottom: 5rem;
 }
 
 .right-0 {
@@ -650,10 +650,6 @@ video {
 
 .top-14 {
   top: 3.5rem;
-}
-
-.bottom-20 {
-  bottom: 5rem;
 }
 
 .z-\[100\] {
@@ -696,6 +692,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mr-20 {
+  margin-right: 5rem;
+}
+
 .mr-3 {
   margin-right: 0.75rem;
 }
@@ -730,6 +730,10 @@ video {
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mr-16 {
+  margin-right: 4rem;
 }
 
 .block {
@@ -862,6 +866,10 @@ video {
 
 .w-3\/12 {
   width: 25%;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-4 {
@@ -1247,6 +1255,10 @@ video {
 
 .to-70\% {
   --tw-gradient-to-position: 70%;
+}
+
+.stroke-black {
+  stroke: #000;
 }
 
 .object-cover {

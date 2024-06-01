@@ -138,12 +138,14 @@ if (isset($_SESSION['user_email'])) {
                     <?php echo $post['description'] ?>
                 </div>
                 <div class="mb-10 flex flex-col  items-center fixed bottom-0 right-1/2 shadow w-24 pt-1 h-12 rounded-full bg-white">
-                    <span class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                    </span>
-                    <span class="text-xs text-slate-800 text-center">10</span>
+                    <button id="button_like">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" id="svg_like" class="w-7 h-7 text-white stroke-black">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                            </svg>
+                        </span>
+                        <span class="text-xs text-slate-800 text-center">10</span>
+                    </button>
                 </div>
                 <div>
                     <div class="text-2xl mb-5">نظرات</div>
@@ -220,6 +222,11 @@ if (isset($_SESSION['user_email'])) {
     const send_comment = document.getElementById('send_comment')
     const comments = document.getElementById('comments')
     const delete_comment = document.getElementsByClassName('delete_comment')
+    const button_like = document.getElementById('button_like')
+    const svg_like = document.getElementById('svg_like')
+    <?php
+        if (isset($_SESSION['user_email'])){
+    ?>
     send_comment.onclick = function (){
         $.ajax({
             url : './api/comment.php?a=add',
@@ -251,7 +258,6 @@ if (isset($_SESSION['user_email'])) {
                         +comment.content
                     +'</div>'
                     +'<div class="flex justify-end gap-x-2">'
-                        +'<button class="text-xs text-blue-500 underline">پاسخ</button>'
                         +'<button class="text-xs text-red-500 underline delete_comment" id="delete-comment-'+comment.id+'">حذف</button>'
                     +'</div>'
                 +'</div>'+befor
@@ -281,6 +287,29 @@ if (isset($_SESSION['user_email'])) {
         }else{
             menu.classList.add('hidden')
         }
+    }
+    <?php } ?>
+    button_like.onclick = function (){
+
+        $.ajax({
+            url: './api/like.php',
+            method: 'post',
+            data : {
+                post_id : <?php echo $post['id'] ?>,
+            },
+            success : function () {
+                if (svg_like.classList.contains('text-red-500'))
+                {
+                    svg_like.classList.remove('text-red-500')
+                    svg_like.classList.add('stroke-black')
+                    svg_like.classList.add('text-white')
+                }else {
+                    svg_like.classList.add('text-red-500')
+                    svg_like.classList.remove('stroke-black')
+                    svg_like.classList.remove('text-white')
+                }
+            }
+        })
     }
 
 </script>
