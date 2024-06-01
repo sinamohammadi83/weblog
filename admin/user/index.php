@@ -2,9 +2,21 @@
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
-$query = "SELECT * From users";
+if (isset($_GET['search'])){
 
-$users = $pdoObj->query($query)->fetchAll();
+    $search = $_GET['search'];
+
+    $query = "SELECT * From users WHERE firstname like '%$search%' or lastname like '%$search%' or email like '%$search%';";
+
+    $users = $pdoObj->query($query)->fetchAll();
+
+} else {
+
+    $query = "SELECT * From users";
+
+    $users = $pdoObj->query($query)->fetchAll();
+
+}
 
 ?>
 
@@ -17,9 +29,13 @@ $users = $pdoObj->query($query)->fetchAll();
     </a>
 </div>
 <div class="bg-white shadow w-full lg:max-w-screen-xl rounded-md p-4 h-5/6 overflow-hidden">
-    <div class="bg-sky-200 rounded-md w-full p-1 mb-5">
-        <input type="text" placeholder="نام ..." class="p-2 rounded-md text-sm outline-none w-72">
-    </div>
+    <form method="get">
+            <div class="bg-sky-200 rounded-md w-full p-1 mb-5">
+                <input type="text" placeholder="نام ..." class="p-2 rounded-md text-sm outline-none w-72" name="search">
+                <input type="hidden" name="s" value="user">
+                <input type="hidden" name="a" value="index">
+            </div>
+    </form>
     <div class="bg-sky-100 w-full p-1 py-3 rounded-md flex gap-x-4 justify-between">
         <div class="flex pr-3 text-sm">
             <div class="w-10">#</div>
