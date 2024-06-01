@@ -36,8 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         <div class="w-full mb-10">
             <div class="mb-2">عنوان</div>
             <div>
-                <input type="text" name="title" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
+                <input type="text" name="title" class="border-2 border-gray-200 <?php if (isset($_GET['error_title'])) echo 'border-red-500'?> w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
             </div>
+            <?php
+            if (isset($_GET['error_title']))
+            {
+                if ($_GET['error_title'] == 1)
+                {
+                    ?>
+                    <div class="text-xs text-red-500 mt-2">فیلد عنوان اجباری است.</div>
+                    <?php
+                }
+            }
+            ?>
         </div>
         <div class="flex justify-end">
             <input type="submit" value="ثبت" class="bg-blue-500 lg:cursor-pointer text-white text-sm rounded-md px-4 py-2 w-1/12"/>

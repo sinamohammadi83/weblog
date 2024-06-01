@@ -93,13 +93,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 <div class="w-full">
                     <div class="mb-2">عنوان</div>
                     <div>
-                        <input type="text" name="title" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
+                        <input type="text" name="title" class="border-2 border-gray-200 <?php if (isset($_GET['error_title'])) echo 'border-red-500'?> w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
                     </div>
+                    <?php
+                    if (isset($_GET['error_title']))
+                    {
+                        if ($_GET['error_title'] == 1)
+                        {
+                            ?>
+                            <div class="text-xs text-red-500 mt-2">فیلد عنوان اجباری است.</div>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
                 <div class="w-full">
                     <div class="mb-2">دسته بندی</div>
                     <div>
-                        <select type="text" name="category_id" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
+                        <select type="text" name="category_id" class="border-2 border-gray-200  w-full p-2 rounded-md outline-none focus:border-blue-500 h-10 ">
                             <?php foreach ($get_category as $category){
 
                                 ?>
@@ -114,8 +125,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="w-full mb-5">
                 <div class="mb-2">محتوا</div>
                 <div>
-                    <textarea type="text" name="description" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
+                    <textarea type="text" name="description" class="border-2 border-gray-200 <?php if (isset($_GET['error_description'])) echo 'border-red-500'?> w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
                 </div>
+                <?php
+                if (isset($_GET['error_description']))
+                {
+                    if ($_GET['error_description'] == 1)
+                    {
+                        ?>
+                        <div class="text-xs text-red-500 mt-2">فیلد محتوا اجباری است.</div>
+                        <?php
+                    }
+                }
+                ?>
             </div>
             <div class="mb-5">
                 <div class="text-sm text-slate-800 mb-2">عکس شاخص</div>
