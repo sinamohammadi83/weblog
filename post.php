@@ -108,7 +108,7 @@ if (isset($_SESSION['user_email'])) {
     <main class="flex w-full lg:max-w-screen-xl">
         <div class="w-9/12 border-l flex flex-col gap-y-6  pr-4">
             <div class="p-4 border-b">
-                <div class="flex mb-5">
+                <div class="flex items-start justify-between mb-5">
                     <a href="" class="text-xs flex items-center gap-x-1">
                         <?php
                             if ($user['picture'])
@@ -130,6 +130,16 @@ if (isset($_SESSION['user_email'])) {
                         <span><?php echo $user['firstname']." ".$user["lastname"]?></span>
                         <span class="text-slate-500">. 2 ساعت پیش</span>
                     </a>
+                    <div class="mb-10 flex flex-col items-center shadow w-12 pt-1 h-12 rounded-full bg-white">
+                        <button id="button_like">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" id="svg_like" class="w-7 h-7 text-white stroke-black">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                            </svg>
+                        </span>
+                            <span class="text-xs text-slate-800 text-center">10</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="text-2xl font-bold mb-5 break-words">
                     <?php echo $post['title'] ?>
@@ -137,16 +147,7 @@ if (isset($_SESSION['user_email'])) {
                 <div class="text-sm text-slate-800 w-10/12 leading-8 mb-10 break-words">
                     <?php echo $post['description'] ?>
                 </div>
-                <div class="mb-10 flex flex-col  items-center fixed bottom-0 right-1/2 shadow w-24 pt-1 h-12 rounded-full bg-white">
-                    <button id="button_like">
-                        <span class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" id="svg_like" class="w-7 h-7 text-white stroke-black">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                            </svg>
-                        </span>
-                        <span class="text-xs text-slate-800 text-center">10</span>
-                    </button>
-                </div>
+
                 <div>
                     <div class="text-2xl mb-5">نظرات</div>
                     <?php
