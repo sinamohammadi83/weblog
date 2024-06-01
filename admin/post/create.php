@@ -10,14 +10,11 @@ $user = $pdoObj->query("SELECT * FROM users WHERE email='$_SESSION[user_email]'"
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
-<<<<<<< HEAD
-=======
     $image = $_FILES['image'];
     $endLink = explode('.',$image['name']);
     $link = "public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
     move_uploaded_file($image['tmp_name'],"../".$link);
 
->>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
     $title = $_POST['title'];
     $slug = implode('-',explode(' ',$title));
     $description = $_POST['description'];
@@ -47,9 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     }
 
-<<<<<<< HEAD
-    $res = $pdoObj->query("INSERT INTO posts (title,description,user_id,status,slug, category_id, read_time) VALUES ('$title','$description','$user[id]','$status','$slug','$category_id','$read_time')");
-=======
     $linkHeader = "location:index.php?s=post&a=create";
     $error = false;
 /*    if (!isset($image))
@@ -84,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 
     $res = $pdoObj->query("INSERT INTO posts (title,description,user_id,status,slug, category_id, read_time, picture) VALUES ('$title','$description','$user[id]','$status','$slug','$category_id','$read_time','$link')");
->>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
 
     if ($res)
     {
@@ -124,13 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 <textarea type="text" name="description" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
                 </div>
             </div>
-<<<<<<< HEAD
-=======
             <div class="mb-5">
                 <div class="text-sm text-slate-800 mb-2">عکس شاخص</div>
                 <input type="file" name="image">
             </div>
->>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
             <div class="mb-10 w-44">
                 <div class="text-sm text-slate-800 mb-2">وضعیت انتشار</div>
                 <div class="flex rounded border border-gray-300 overflow-hidden">
