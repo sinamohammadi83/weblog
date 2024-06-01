@@ -49,7 +49,37 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
         <div class="flex justify-between py-10 w-full px-10">
             <a href="../index.php" class="text-3xl font-bold">وبلاگ</a>
             <input type="text" class="bg-gray-100 w-96 h-10 rounded-md outline-none px-2"/>
+            <?php
+                if (!isset($_SESSION['user_email'])){
+                    ?>
             <a href="../login.php" class="text-sm py-2 px-4 flex items-center bg-blue-500 rounded-md text-white">ورود / ثبت نام</a>
+            <?php
+                } else{
+            ?>
+                <button id="button_menu" class="rounded-full border-2 border-slate-700 w-10 h-10 relative">
+                    <?php 
+                        if ($get_id['picture'])
+                        {
+                            ?>
+                        <img src="../<?php echo $get_id['picture']?>" class="w-full h-full object-cover rounded-full" alt="">
+                    <?php
+                        }else{
+                    ?>
+                          <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                          </span>
+                    <?php
+                        }
+                    ?>s
+                    <div class="rounded-md text-black border shadow w-20 h-20 z-50 absolute top-10 -left-20">
+                        <a href="">
+                            <span class="text-xs">خروج</span>
+                        </a>
+                    </div>
+                </button>
+            <?php } ?>
         </div>
         <nav class="gap-x-4 flex lg:max-w-screen-xl w-full border-b pb-4 px-10 border-b-gray-300">
             <a href="">درباره ما</a>
