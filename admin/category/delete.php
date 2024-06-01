@@ -11,9 +11,9 @@ if (isset($_GET['id'])){
     $delete = $pdoObj->query($query);
 
     if ($delete){
-        echo "Category Deleted";
-    } else{
-        echo "Category Not Deleted";
+
+        header('location: index.php?s=category&a=index');
+
     }
 
 }
