@@ -5,9 +5,35 @@ include 'functions.php';
 
 $pdoObj = new PDO("mysql:host=localhost;dbname=weblog","root","");
 
+<<<<<<< HEAD
 $query = "SELECT * From posts WHERE status = 'publish' LIMIT 3;";
 
 $posts = $pdoObj->query($query)->fetchAll();
+=======
+if (isset($_GET['suggestion_id'])){
+
+    $suggestion_id = $_GET['suggestion_id'];
+
+    $query = "SELECT * From posts WHERE status = 'publish' AND category_id = '$suggestion_id' LIMIT 3;";
+
+    $posts = $pdoObj->query($query)->fetchAll();
+
+} else if (isset($_GET['search'])) {
+
+    $search = $_GET['search'];
+
+    $query = "SELECT * From posts WHERE status = 'publish' and title like '%$search%' or description like '%$search%' LIMIT 3;";
+
+    $posts = $pdoObj->query($query)->fetchAll();
+
+} else {
+
+    $query = "SELECT * From posts WHERE status = 'publish' LIMIT 3;";
+
+    $posts = $pdoObj->query($query)->fetchAll();
+
+}
+>>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
 
 $queryCategories = "SELECT * FROM category LIMIT 10";
 
@@ -28,7 +54,13 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
     <header class="w-full lg:max-w-screen-xl">
         <div class="flex justify-between py-10 w-full px-10">
             <a href="./index.php" class="text-3xl font-bold">وبلاگ</a>
+<<<<<<< HEAD
             <input type="text" class="bg-gray-100 w-96 h-10 rounded-md outline-none px-2"/>
+=======
+            <form method="get">
+                <input type="text" class="bg-gray-100 w-96 h-10 rounded-md outline-none px-2" name="search"/>
+            </form>
+>>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
             <a href="./login.php" class="text-sm py-2 px-4 flex items-center bg-blue-500 rounded-md text-white">ورود / ثبت نام</a>
         </div>
         <nav class="gap-x-4 flex lg:max-w-screen-xl w-full border-b pb-4 px-10 border-b-gray-300">
@@ -96,7 +128,11 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
                 </div>
                 <div class="flex gap-2 flex-wrap">
                     <?php foreach ($categories as $category){ ?>
+<<<<<<< HEAD
                         <a href="" class="border border-black rounded-md text-sm py-1 px-2 whitespace-nowrap">
+=======
+                        <a href="index.php?suggestion_id=<?php echo $category['id'] ?>" class="border border-black rounded-md text-sm py-1 px-2 whitespace-nowrap">
+>>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
                             <?php echo $category['title'] ?>
                         </a>
                     <?php } ?>

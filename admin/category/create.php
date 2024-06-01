@@ -6,6 +6,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $title = $_POST['title'];
 
+<<<<<<< HEAD
+=======
+    $linkHeader = "location:index.php?s=category&a=create";
+    $error = false;
+
+    if ($title == "")
+    {
+        $linkHeader.="&error_title=1";
+        $error = true;
+    }
+    if ($error)
+    {
+        header($linkHeader);
+        die();
+    }
+
+>>>>>>> cfcd4bf4a72c130c7cd5ea4b9426a581778d4822
     $res = $pdoObj->query("INSERT INTO category (title) VALUES ('$title')");
 
     if ($res)
