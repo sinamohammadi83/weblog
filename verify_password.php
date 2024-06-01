@@ -31,8 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
                     $_SESSION['user_token'] = $info['token'];
                     $_SESSION['user_email'] = $info['email'];
+                    $_SESSION['user_role'] = $user['role'];
 
-                    header('Location: ./dashboard.php');
+                    if ($user['role'] == 'user'){
+                        header('Location: ./client/dashboard.php');
+                    }else{
+                        header('Location: ./admin/index.php');
+                    }
 
                 }
 
