@@ -27,7 +27,7 @@
                 <div>
                     <img src="../<?php echo $user['picture'] ?>" class="w-16 h-16 object-cover rounded-full" alt="">
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center gap-x-1">
                     <span><?php echo $user['firstname'].' '.$user['lastname'] ?></span>
                     <a href="index.php?s=profile&a=profile">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
