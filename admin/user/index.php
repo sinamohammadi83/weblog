@@ -18,13 +18,14 @@ $users = $pdoObj->query($query)->fetchAll();
 </div>
 <div class="bg-white shadow w-full lg:max-w-screen-xl rounded-md p-4 h-5/6 overflow-hidden">
     <div class="bg-sky-200 rounded-md w-full p-1 mb-5">
-        <input type="text" placeholder="عنوان ..." class="p-2 rounded-md text-sm outline-none w-72">
+        <input type="text" placeholder="نام ..." class="p-2 rounded-md text-sm outline-none w-72">
     </div>
     <div class="bg-sky-100 w-full p-1 py-3 rounded-md flex gap-x-4 justify-between">
         <div class="flex pr-3 text-sm">
             <div class="w-10">#</div>
             <div class="w-44">نام و نام خانوادگی</div>
             <div class="w-48">ایمیل</div>
+            <div class="w-20 mr-5">نقش</div>
             <div class="w-20">تاریخ ثبت نام</div>
         </div>
         <div class="flex justify-center w-56 text-sm">
@@ -46,10 +47,30 @@ $users = $pdoObj->query($query)->fetchAll();
                         <div class="w-10"><?php echo $user['id'] ?></div>
                         <div class="w-44 truncate"><?php echo $user['firstname'] .' '.$user['lastname'] ?></div>
                         <div class="w-44 truncate"><?php echo $user['email'] ?></div>
-                        <div class="w-20 mr-5"><?php echo convert_date($user['reg_date'])?></div>
+                        <div class="w-20 mr-10"><?php echo $user['role'] == 'user' ? 'کاربر' : 'مدیر'?></div>
+                        <div class="w-20 "><?php echo convert_date($user['reg_date'])?></div>
                     </div>
-                    <div class="justify-center w-52 text-sm flex gap-x-2">
-                        <a href="" class="flex flex-col items-center">
+                    <div class="justify-center w-52 text-sm flex items-start gap-x-2">
+                        <button class="button_status" data-status="<?php echo $user['status']?>" data-user-id="<?php echo $user['id']?>" id="user-<?php echo $user['id']?>">
+                            <span>
+                                <?php
+                                    if ($user['status'] == 0){
+                                ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5">
+                                    <path d="M441 103c9.4 9.4 9.4 24.6 0 33.9L177 401c-9.4 9.4-24.6 9.4-33.9 0L7 265c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l119 119L407 103c9.4-9.4 24.6-9.4 33.9 0z"/>
+                                </svg>
+                                <?php
+                                    }else{
+                                        ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-5 h-5">
+                                        <path d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z"/>
+                                    </svg>
+                                <?php
+                                    }
+                                ?>
+                            </span>
+                        </button>
+                        <a href="index.php?s=user&a=user_post&user_id=<?php echo $user['id'] ?>" class="flex flex-col items-center">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-5 h-5">
                                     <path d="M320 480H64c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32H192V144c0 26.5 21.5 48 48 48H352V448c0 17.7-14.3 32-32 32zM240 160c-8.8 0-16-7.2-16-16V32.5c2.8 .7 5.4 2.1 7.4 4.2L347.3 152.6c2.1 2.1 3.5 4.6 4.2 7.4H240zM64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V163.9c0-12.7-5.1-24.9-14.1-33.9L254.1 14.1c-9-9-21.2-14.1-33.9-14.1H64zm0 80c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm0 64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zM224 432c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16H240c-8.8 0-16 7.2-16 16zm64-96H96V272H288v64zM96 240c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32H288c17.7 0 32-14.3 32-32V272c0-17.7-14.3-32-32-32H96z"/>
@@ -75,3 +96,27 @@ $users = $pdoObj->query($query)->fetchAll();
             <?php } } ?>
     </div>
 </div>
+<script>
+    $('.button_status').click(function (){
+        const button = $(this)
+        $.ajax({
+            url:'../api/admin/user/change_status.php',
+            method:'post',
+            data:{
+                'status' : $(this).attr('data-status') == 1 ? 0 : 1,
+                'user_id' : $(this).attr('data-user-id')
+            },
+            success:function (data){
+
+                if (button.attr('data-status') == 1)
+                {
+                    button.attr('data-status','0')
+                    button.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5"> <path d="M441 103c9.4 9.4 9.4 24.6 0 33.9L177 401c-9.4 9.4-24.6 9.4-33.9 0L7 265c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l119 119L407 103c9.4-9.4 24.6-9.4 33.9 0z"/> </svg>')
+                }else {
+                    button.attr('data-status','1')
+                    button.html('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-5 h-5"> <path d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z"/> </svg>')
+                }
+            }
+        })
+    })
+</script>

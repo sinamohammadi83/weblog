@@ -6,6 +6,8 @@ $Category = "SELECT * FROM Category";
 
 $get_category = $pdoObj->query($Category)->fetchAll();
 
+$user = $pdoObj->query("SELECT * FROM users WHERE email='$_SESSION[user_email]'")->fetch();
+
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $title = $_POST['title'];
@@ -37,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     }
 
-    $res = $pdoObj->query("INSERT INTO posts (title,description,user_id,status,slug, category_id, read_time) VALUES ('$title','$description','0','$status','$slug','$category_id','$read_time')");
+    $res = $pdoObj->query("INSERT INTO posts (title,description,user_id,status,slug, category_id, read_time) VALUES ('$title','$description','$user[id]','$status','$slug','$category_id','$read_time')");
 
     if ($res)
     {

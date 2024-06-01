@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $info = $pdoObj->query($query)->fetch();
 
+    $user = $pdoObj->query("SELECT * FROM users WHERE email='$info[email]'")->fetch();
+
     if ($info){
 
         if ($code == $info['code'] AND $token == $info['token']){
@@ -25,8 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
                 $_SESSION['user_token'] = $info['token'];
                 $_SESSION['user_email'] = $info['email'];
+                $_SESSION['user_role'] = $user['role'];
 
-                header('Location: ./client/dashboard.php');
+                if ($user['role'] == 'user'){
+                    header('Location: ./client/dashboard.php');
+                }else{
+                    header('Location: ./admin/index.php');
+                }
 
             }
 

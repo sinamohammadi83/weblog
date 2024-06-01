@@ -20,6 +20,7 @@ $queryCategories = "SELECT * FROM category LIMIT 10";
 
 $categories = $pdoObj->query($queryCategories)->fetchAll();
 
+$user = $pdoObj->query("SELECT * FROM users WHERE id='$post[user_id]'")->fetch();
 ?>
 
 <html lang="fa" dir="rtl">
@@ -48,12 +49,24 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
             <div class="p-4 border-b">
                 <div class="flex mb-5">
                     <a href="" class="text-xs flex items-center gap-x-1">
+                        <?php
+                            if ($user['picture'])
+                            {
+                        ?>
+                            <img class="w-10 h-10 rounded-full" src="<?php echo $user['picture'] ?>" alt="<?php echo $user['firstname']." ".$user["lastname"] ?>">
+                        <?php
+                            }else{
+                        ?>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                 </svg>
                             </span>
-                        <span><?php $user = $pdoObj->query("SELECT * FROM users WHERE id='$post[user_id]'")->fetch();echo $user['firstname']." ".$user["lastname"]?></span>
+                        <?php
+                            }
+
+                        ?>
+                        <span><?php echo $user['firstname']." ".$user["lastname"]?></span>
                         <span class="text-slate-500">. 2 ساعت پیش</span>
                     </a>
                 </div>

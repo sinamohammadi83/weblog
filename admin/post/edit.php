@@ -92,12 +92,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         <div class="mb-10 w-44">
             <div class="text-sm text-slate-800 mb-2">وضعیت انتشار</div>
             <div class="flex rounded border border-gray-300 overflow-hidden">
-                <button type="button" class="bg-orange-500 text-white text-sm w-full py-2" id="draft">پیش نویس</button>
-                <button type="button" class="bg-white text-black text-sm w-full py-2" id="publish">منتشر شده</button>
+                <button type="button" class="<?php echo $get_post['status']=='preview' ? "bg-orange-500 text-white" : "text-black bg-white"?> text-sm w-full py-2" id="draft">پیش نویس</button>
+                <button type="button" class="<?php echo $get_post['status']=='publish' ? "bg-blue-500 text-white" : "text-black bg-white"?> text-sm w-full py-2" id="publish">منتشر شده</button>
             </div>
             <div class="hidden">
-                <input type="radio" name="status" id="radio_draft" checked value="preview">
-                <input type="radio" name="status" id="radio_publish" value="publish">
+                <input type="radio" name="status" id="radio_draft" <?php if ($get_post['status']=='preview') echo "checked" ?> value="preview">
+                <input type="radio" name="status" id="radio_publish" <?php if ($get_post['status']=='publish') echo "checked" ?> value="publish">
             </div>
         </div>
         <div class="flex justify-end">
