@@ -27,6 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $category_id = $_POST['category_id'];
     $description_len = strlen($description);
 
+    $image = $_FILES['image'];
+    if ($image['name'])
+    {
+        unlink('../'.$get_post['picture']);
+        $end = explode('.',$image['name'])[1];
+        $link = "public/images/post/".token(15).'.'.$end;
+        move_uploaded_file($image['tmp_name'],'../'.$link);
+    }else{
+        $link = $get_post['picture'];
+    }
+
     switch ($description_len){
 
         case $description_len < 500:
@@ -49,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     }
 
-    $res = $pdoObj->query("UPDATE posts SET title='$title' ,description='$description' ,status='$status' ,slug='$slug' , category_id='$category_id' ,read_time='$read_time' WHERE id='$post_id'");
+    $res = $pdoObj->query("UPDATE posts SET title='$title' ,description='$description' ,status='$status' ,slug='$slug' , category_id='$category_id' ,read_time='$read_time',picture='$link' WHERE id='$post_id'");
 
     if ($res)
     {
@@ -60,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 ?>
 <div class="w-10/12 lg:max-w-screen-lg mb-10 text-xl font-bold">ویرایش مقاله</div>
 <div class="bg-white w-10/12 rounded-md shadow p-4 pb-0 text-sm lg:max-w-screen-lg">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="flex w-full gap-x-4 mb-5">
             <div class="w-full">
                 <div class="mb-2">عنوان</div>
@@ -87,6 +98,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="mb-2">محتوا</div>
             <div>
                 <textarea type="text" name="description" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"><?php echo $post_description ?></textarea>
+            </div>
+        </div>
+        <div class="mb-5 flex justify-between">
+            <div>
+                <div class="text-sm text-slate-800 mb-2">عکس شاخص</div>
+                <input type="file" name="image" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-12">
+            </div>
+            <div>
+                <img src="../<?php echo $get_post['picture']?>" class="rounded-md w-44 h-28" alt="">
             </div>
         </div>
         <div class="mb-10 w-44">

@@ -72,10 +72,31 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
                           </span>
                     <?php
                         }
-                    ?>s
-                    <div class="rounded-md text-black border shadow w-20 h-20 z-50 absolute top-10 -left-20">
-                        <a href="">
-                            <span class="text-xs">خروج</span>
+                    ?>
+                    <div id="menu" class="rounded-md text-black bg-white border shadow w-44 h-36 z-[100] absolute top-14 -left-5 pt-4 hidden">
+                        <a href="../logout.php" class="py-2 flex pr-4 gap-x-2 items-center hover:text-blue-500">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" class="w-4 h-4">
+                                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
+                                </svg>
+                            </span>
+                            <span class="text-sm">خروج</span>
+                        </a>
+                        <a href="./profile.php" class="py-2 flex pr-4 gap-x-2 items-center hover:text-blue-500">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                </svg>
+                            </span>
+                            <span class="text-sm">ویرایش پروفایل</span>
+                        </a>
+                        <a href="../" class="py-2 flex pr-4 gap-x-2 items-center hover:text-blue-500">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-5 h-5">
+                                    <path d="M272.5 5.7c9-7.6 22.1-7.6 31.1 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8s-23.7 11.3-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.2 0-80-35.8-80-80V245.5L39.5 266.3c-10.1 8.6-25.3 7.3-33.8-2.8s-7.3-25.3 2.8-33.8l264-224zM288 55.5L112 204.8V432c0 17.7 14.3 32 32 32h48V312c0-22.1 17.9-40 40-40H344c22.1 0 40 17.9 40 40V464h48c17.7 0 32-14.3 32-32V204.8L288 55.5zM240 464h96V320H240V464z"/>
+                                </svg>
+                            </span>
+                            <span class="text-sm">وبلاگ</span>
                         </a>
                     </div>
                 </button>
@@ -225,6 +246,16 @@ $categories = $pdoObj->query($queryCategories)->fetchAll();
         button_draft.classList.add('border-b-0')
         button_publish.classList.add('border-b')
         button_publish.classList.remove('border-b-0')
+    }
+    const button_menu = document.getElementById('button_menu')
+    const menu = document.getElementById('menu')
+    button_menu.onclick = function (){
+        if (menu.classList.contains('hidden'))
+        {
+            menu.classList.remove('hidden')
+        }else{
+            menu.classList.add('hidden')
+        }
     }
 </script>
 </body>

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $image = $_FILES['image'];
     $endLink = explode('.',$image['name']);
-    $link = "public/images/post/".rand(1111111111,9999999999).".".$endLink[1];
+    $link = "public/images/post/".token(15).".".$endLink[1];
     move_uploaded_file($image['tmp_name'],"../".$link);
 
     $title = $_POST['title'];
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 ?>
     <div class="w-10/12 lg:max-w-screen-lg mb-10 text-xl font-bold">ایجاد مقاله</div>
     <div class="bg-white w-10/12 rounded-md shadow p-4 pb-0 text-sm lg:max-w-screen-lg">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="flex w-full gap-x-4 mb-5">
                 <div class="w-full">
                     <div class="mb-2">عنوان</div>
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="w-full mb-5">
                 <div class="mb-2">محتوا</div>
                 <div>
-                <textarea type="text" name="description" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
+                    <textarea type="text" name="description" class="border-2 border-gray-200 w-full p-2 rounded-md outline-none focus:border-blue-500 h-44 resize-none"></textarea>
                 </div>
             </div>
             <div class="mb-5">
