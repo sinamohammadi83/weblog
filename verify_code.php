@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $info = $pdoObj->query($query)->fetch();
 
-    $user = $pdoObj->query("SELECT * FROM users WHERE email='$info[email]'")->fetch();
+    $user = $pdoObj->query("SELECT * FROM users WHERE email='$info[email]' AND status='1'")->fetch();
 
-    if ($info){
+    if ($info && $user){
 
         if ($code == $info['code'] AND $token == $info['token']){
 

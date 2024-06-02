@@ -54,7 +54,7 @@ $comments = $pdoObj->query($query)->fetchAll();
                         <div class="w-10"><?php echo $comment['id'] ?></div>
                         <div class="w-44 truncate"><?php $user = $pdoObj->query("SELECT * FROM users WHERE id='$comment[user_id]'")->fetch();echo $user['firstname']." ".$user["lastname"]; ?></div>
                         <div class="w-32"><?php echo convert_date($comment['comment_date'], true) ?></div>
-                        <div class="w-72 mr-16"><?php echo $comment['contents'] ?></div>
+                        <div class="w-72 mr-16 break-words"><?php echo $comment['contents'] ?></div>
                     </div>
                     <div class="w-44 justify-center text-sm flex gap-x-2">
                         <a href="index.php?s=comment&a=delete&comment_id=<?php echo $comment['id'] ?>&post_id=<?php echo $comment['post_id'] ?>" class="mr-2 block">

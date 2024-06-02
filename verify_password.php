@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
             $password = md5($password);
 
-            $queryUser = "SELECT email, password From users WHERE email = '$email' AND password = '$password' LIMIT 1;";
+            $queryUser = "SELECT * From users WHERE email = '$email' AND password = '$password' LIMIT 1;";
 
             $user = $pdoObj->query($queryUser)->fetch();
 
