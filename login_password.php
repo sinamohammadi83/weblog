@@ -18,7 +18,7 @@
         <div class="w-full px-5">
             <form method="post" action="verify_password.php">
                 <div class="mb-2">رمز عبور</div>
-                <input type="text" name="password"
+                <input type="password" name="password"
                        class="bg-gray-200 outline-none focus:bg-white focus:border-2 focus:border-blue-500 w-full rounded-md p-2">
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($_GET['token'])?>">
                 <a href="./submit_code.php?token=<?php echo htmlspecialchars($_GET['token'])?>" class="text-sm text-blue-500 underline mt-2 block">ورود با کد یکبار مصرف</a>
